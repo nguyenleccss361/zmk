@@ -15,6 +15,10 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/event_manager.h>
 #include <zmk/hid_indicators.h>
 
+#define HID_INDICATOR_NUM_LOCK BIT(0)
+#define HID_INDICATOR_CAPS_LOCK BIT(1)
+#define HID_INDICATOR_SCROLL_LOCK BIT(2)
+
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
 struct hid_indicators_status_state {
@@ -62,6 +66,3 @@ int zmk_widget_hid_indicators_status_init(struct zmk_widget_hid_indicators_statu
 lv_obj_t *zmk_widget_hid_indicators_status_obj(struct zmk_widget_hid_indicators_status *widget) {
     return widget->obj;
 }
-#define HID_INDICATOR_NUM_LOCK BIT(0)
-#define HID_INDICATOR_CAPS_LOCK BIT(1)
-#define HID_INDICATOR_SCROLL_LOCK BIT(2)
