@@ -5,9 +5,9 @@
  */
 
 #include <zephyr/logging/log.h>
+#include <zephyr/sys/util.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#include <dt-bindings/zmk/hid_indicators.h>
 #include <zmk/display.h>
 #include <zmk/display/widgets/hid_indicators_status.h>
 #include <zmk/events/endpoint_changed.h>
@@ -62,3 +62,6 @@ int zmk_widget_hid_indicators_status_init(struct zmk_widget_hid_indicators_statu
 lv_obj_t *zmk_widget_hid_indicators_status_obj(struct zmk_widget_hid_indicators_status *widget) {
     return widget->obj;
 }
+#define HID_INDICATOR_NUM_LOCK BIT(0)
+#define HID_INDICATOR_CAPS_LOCK BIT(1)
+#define HID_INDICATOR_SCROLL_LOCK BIT(2)
