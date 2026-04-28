@@ -36,4 +36,14 @@ config ZMK_WIDGET_WPM_STATUS
     select LV_USE_LABEL
     select ZMK_WPM
 
+config ZMK_WIDGET_HID_INDICATORS_STATUS
+    bool "Widget for Caps/Num/Scroll lock state"
+    depends on ZMK_HID_INDICATORS && (!ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL)
+    select LV_USE_LABEL
+
+config ZMK_WIDGET_SLEEP_STATUS
+    bool "Widget for sleep countdown"
+    depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+    select LV_USE_LABEL
+
 endmenu

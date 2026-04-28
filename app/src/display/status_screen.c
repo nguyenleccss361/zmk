@@ -7,7 +7,9 @@
 #include <zmk/display/widgets/output_status.h>
 #include <zmk/display/widgets/peripheral_status.h>
 #include <zmk/display/widgets/battery_status.h>
+#include <zmk/display/widgets/hid_indicators_status.h>
 #include <zmk/display/widgets/layer_status.h>
+#include <zmk/display/widgets/sleep_status.h>
 #include <zmk/display/widgets/wpm_status.h>
 #include <zmk/display/status_screen.h>
 
@@ -32,6 +34,14 @@ static struct zmk_widget_layer_status layer_status_widget;
 
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
 static struct zmk_widget_wpm_status wpm_status_widget;
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_HID_INDICATORS_STATUS)
+static struct zmk_widget_hid_indicators_status hid_indicators_status_widget;
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_SLEEP_STATUS)
+static struct zmk_widget_sleep_status sleep_status_widget;
 #endif
 
 lv_obj_t *zmk_display_status_screen() {
@@ -64,6 +74,21 @@ lv_obj_t *zmk_display_status_screen() {
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
     zmk_widget_wpm_status_init(&wpm_status_widget, screen);
     lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_HID_INDICATORS_STATUS)
+    zmk_widget_hid_indicators_status_init(&hid_indicators_status_widget, screen);
+    lv_obj_set_style_text_font(zmk_widget_hid_indicators_status_obj(&hid_indicators_status_widget),
+                               lv_theme_get_font_small(screen), LV_PART_MAIN);
+    lv_obj_align(zmk_widget_hid_indicators_status_obj(&hid_indicators_status_widget),
+                 LV_ALIGN_BOTTOM_MID, 0, 0);
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_WIDGET_SLEEP_STATUS)
+    zmk_widget_sleep_status_init(&sleep_status_widget, screen);
+    lv_obj_set_style_text_font(zmk_widget_sleep_status_obj(&sleep_status_widget),
+                               lv_theme_get_font_small(screen), LV_PART_MAIN);
+    lv_obj_align(zmk_widget_sleep_status_obj(&sleep_status_widget), LV_ALIGN_TOP_MID, 0, 0);
 #endif
     return screen;
 }
