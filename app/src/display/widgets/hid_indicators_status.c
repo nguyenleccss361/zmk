@@ -15,9 +15,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/event_manager.h>
 #include <zmk/hid_indicators.h>
 
-#define HID_INDICATOR_NUM_LOCK BIT(0)
 #define HID_INDICATOR_CAPS_LOCK BIT(1)
-#define HID_INDICATOR_SCROLL_LOCK BIT(2)
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
@@ -27,10 +25,9 @@ struct hid_indicators_status_state {
 
 static void set_indicator_text(lv_obj_t *label, struct hid_indicators_status_state state) {
     char text[10] = "";
-    text[0] = (state.indicators & HID_INDICATOR_CAPS_LOCK) ? 'C' : '-';
-    text[1] = (state.indicators & HID_INDICATOR_NUM_LOCK) ? 'N' : '-';
-    text[2] = (state.indicators & HID_INDICATOR_SCROLL_LOCK) ? 'S' : '-';
-    text[3] = '\0';
+    if (state.indicators & HID_INDICATOR_CAPS_LOCK) {
+        lv_snprintf(text, sizeof(text), "CAP");
+    }
     lv_label_set_text(label, text);
 }
 
