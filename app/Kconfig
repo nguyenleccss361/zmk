@@ -267,6 +267,25 @@ config ZMK_KEYMAP_LAYER_NAME_MAX_LEN
 
 endif # ZMK_KEYMAP_SETTINGS_STORAGE
 
+config ZMK_BLE_PROFILE_LAYER_SYNC
+    bool "Auto-switch base layer from active BLE profile"
+    depends on ZMK_BLE && (!ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL)
+    help
+      Automatically calls &to on BLE profile changes so profile-specific
+      layouts persist across reboot/wake.
+
+if ZMK_BLE_PROFILE_LAYER_SYNC
+
+config ZMK_BLE_PROFILE_0_LAYER
+    int "Layer for BLE profile 1"
+    default 0
+
+config ZMK_BLE_PROFILE_OTHER_LAYER
+    int "Layer for BLE profiles 2+"
+    default 0
+
+endif # ZMK_BLE_PROFILE_LAYER_SYNC
+
 endmenu # Keymaps
 
 rsource "src/studio/Kconfig"
