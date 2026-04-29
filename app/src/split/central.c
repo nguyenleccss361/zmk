@@ -18,6 +18,7 @@
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/events/position_state_changed.h>
 #include <zmk/events/sensor_event.h>
+#include <zmk/sensors.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
@@ -64,7 +65,16 @@ int zmk_split_transport_central_peripheral_event_handler(
     }
 #endif
     case ZMK_SPLIT_TRANSPORT_PERIPHERAL_EVENT_TYPE_SENSOR_EVENT: {
-        struct zmk_sensor_event sensor_ev = {.sensor_index = ev.data.sensor_event.sensor_index,
+        uint8_t sensor_index = ev.data.sensor_event.sensor_index;
+
+        if (ZMK_KEYMAP_SENSORS_LEN > 1) {
+            uint8_t remapped = sensor_index + source + 1;
+            if (remapped < ZMK_KEYMAP_SENSORS_LEN) {
+                sensor_index = remapped;
+            }
+        }
+
+        struct zmk_sensor_event sensor_ev = {.sensor_index = sensor_index,
                                              .channel_data_size = 1,
                                              .timestamp = k_uptime_get()};
 

@@ -81,7 +81,7 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_set_style_text_font(zmk_widget_hid_indicators_status_obj(&hid_indicators_status_widget),
                                lv_theme_get_font_small(screen), LV_PART_MAIN);
     lv_obj_align(zmk_widget_hid_indicators_status_obj(&hid_indicators_status_widget),
-                 LV_ALIGN_TOP_LEFT, 42, 0);
+                 LV_ALIGN_BOTTOM_LEFT, 28, 0);
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_SLEEP_STATUS)

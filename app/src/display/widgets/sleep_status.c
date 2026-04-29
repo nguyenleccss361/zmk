@@ -35,7 +35,7 @@ static void update_all_widgets(void) {
         }
         int mins = (int)(remaining / 60000);
         int secs = (int)((remaining % 60000) / 1000);
-        lv_snprintf(text, sizeof(text), "S%02d:%02d", mins, secs);
+        lv_snprintf(text, sizeof(text), "%02d:%02d", mins, secs);
     }
 
     SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) { lv_label_set_text(widget->obj, text); }
